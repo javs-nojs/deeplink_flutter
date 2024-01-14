@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:deeplink_flutter/routes/app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -8,35 +8,17 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: router);
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+    );
   }
 }
-
-final router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (_, __) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Home Screen'),
-        ),
-        body: const Center(
-          child: Text('Krisno Mukti'),
-        ),
-      ),
-    ),
-    GoRoute(
-      path: '/profile/:id',
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Profile'),
-        ),
-        body: Center(
-          child: Text(state.pathParameters['id'].toString()),
-        ),
-      ),
-    ),
-  ],
-);
